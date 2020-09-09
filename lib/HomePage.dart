@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ilaje_music/availaleSong.dart';
+import 'package:ilaje_music/localFile.dart';
 import 'package:ilaje_music/playlistPage.dart';
 import 'playingPage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,100 +12,90 @@ class HomePage extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        body: Column(
-          children: [
-            SizedBox(height: 16,),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-              height: 120,
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width,
-              child: Row(children: [
-                CircleAvatar(radius: 25,
-                    child: Image.asset(
-                      "asset/profile.png", fit: BoxFit.cover,)),
-                SizedBox(width: 16),
-                Text(
-                  "Hello, Inumidun",
-                  style: TextStyle(
-                      color: Color(0xff17807B),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16),
-                ),
-                Spacer()
-                ,
-                IconButton(icon: SvgPicture.asset(
-                    "asset/menu.svg", color: Color(0xff17807B)), onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> AvailableSongs()));
-                },)
-              ]),
-            ),
-            CustomTabBar(),
-            SizedBox(height: 8),
-            Container(
-              height: MediaQuery
-                  .of(context)
-                  .size
-                  .height * 0.78,
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: SingleChildScrollView(
-                child: Column(
+        body: SafeArea(
+          child: Column(
+            children: [
+              SizedBox(height: 16,),
+              CustomTabBar(),
+              SizedBox(height: 8),
+              Container(
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.89,
+                child: TabBarView(
                   children: [
+                  Container(
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height * 0.70,
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(height: 20),
+                          InkWell(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>PlaylistPage()));
+                            },
+                            child: Container(
+                              height: 315,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Color(0xffFF7858)),
+                              child: Stack(children: [
+                                Positioned(top: 30, left: 20, child: Text(
+                                  "Top 20\n of the week", style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 28),),),
+                                Positioned(bottom: 21, right: 1, child: SvgPicture
+                                    .asset("asset/rafiki.svg"),),
+                                Positioned(bottom: 21, left: 10, child: Image.asset(
+                                    "asset/Ellipse1.png"),),
+                                Positioned(bottom: 21, left: 30, child: Image.asset(
+                                    "asset/Ellipse2.png"),),
+                                Positioned(bottom: 21, left: 50, child: Image.asset(
+                                    "asset/Ellipse3.png"),)
+                              ],),
+                            ),
+                          ),
+                          SizedBox(height: 30,),
+                          Row(
+                            children: [
+                              Text("New Releases", style: TextStyle(fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xff17807B))),
+                              Spacer(),
+                              Text("See All", style: TextStyle(color: Color(
+                                  0xffBCCEDA)),)
+                            ],
+                          ),
+                          Container(),
+                          SizedBox(height: 24),
+                          Row(mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              AlbumCover("asset/img1.jpg"),
+                              AlbumCover("asset/img2.jpg")
+                            ],),
+                          SizedBox(height: 24),
+                          Row(mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              AlbumCover("asset/img1.jpg"),
+                              AlbumCover("asset/img2.jpg")
+                            ],)
 
-                    SizedBox(height: 20),
-                    Container(
-                      height: 315,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Color(0xffFF7858)),
-                      child: Stack(children: [
-                        Positioned(top: 30, left: 20, child: Text(
-                          "Top 20\n of the week", style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 28),),),
-                        Positioned(bottom: 21, right: 1, child: SvgPicture
-                            .asset("asset/rafiki.svg"),),
-                        Positioned(bottom: 21, left: 10, child: Image.asset(
-                            "asset/Ellipse1.png"),),
-                        Positioned(bottom: 21, left: 30, child: Image.asset(
-                            "asset/Ellipse2.png"),),
-                        Positioned(bottom: 21, left: 50, child: Image.asset(
-                            "asset/Ellipse3.png"),)
-                      ],),
+                        ],
+                      ),
                     ),
-                    SizedBox(height: 30,),
-                    Row(
-                      children: [
-                        Text("New Releases", style: TextStyle(fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff17807B))),
-                        Spacer(),
-                        Text("See All", style: TextStyle(color: Color(
-                            0xffBCCEDA)),)
-                      ],
-                    ),
-                    Container(),
-                    SizedBox(height: 24),
-                    Row(mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AlbumCover("asset/img1.jpg"),
-                        AlbumCover("asset/img2.jpg")
-                      ],),
-                    SizedBox(height: 24),
-                    Row(mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AlbumCover("asset/img1.jpg"),
-                        AlbumCover("asset/img2.jpg")
-                      ],)
+                  ),
+                  Container(height:double.infinity,color: Colors.black,child: LocalFile())
+                ],),
+              )
 
-                  ],
-                ),
-              ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -121,7 +112,7 @@ class AlbumCover extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => PlaylistPage()));
+            MaterialPageRoute(builder: (context) => AvailableSongs()));
       },
       child: Container(
         padding: EdgeInsets.only(right: 16),

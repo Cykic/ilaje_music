@@ -14,9 +14,27 @@ class AvailableSongs extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Color(0xffF68871) ,
+        currentIndex: 0, // this will be set when a new tab is tapped
+        items: [
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.home),
+            title: new Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.search),
+            title: new Text('Search'),
+          ),
+          BottomNavigationBarItem(
+              icon: SvgPicture.asset("asset/news.svg",),
+              title: Text('News')
+          )
+        ],
+      ),
       bottomSheet: InkWell(
         onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> PlayingPage()));
+//          Navigator.push(context, MaterialPageRoute(builder: (context)=> PlayingPage()));
         },
         child: Container(
           height: 50,
